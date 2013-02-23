@@ -1,41 +1,41 @@
 class Trinode(object):
     
+    sum = 0
+    
     def __init__(self, value):
         self.val = int(value)
         self.left = None
         self.right = None
         
     def __repr__(self):
-        return str(self.val)
-    
-def trisum(node):
-    if node.left and node.right:
-        left, right = node.val + trisum(node.left), node.val + trisum(node.right)
-        val = left if left > right else right
-    else: val = node.val
-    
-    return val
+        return str(self.val) + ': ' + str(self.sum)
+        
+    def __lt__(self, other):
+        return self.sum < other.sum
+        
+    def setsum(self, parent):
+        sum = parent.sum + self.val
+        if sum > self.sum: self.sum = sum
 
 if __name__ == '__main__':
 
-    input =
-"""
-        5
-      9  6
-    4   6  8
-  0   7  1   5
-"""
+    input = """
+            5
+          9  6
+        4   6  8
+     500  7  1   501
+    """
     
     raw = [list(map(Trinode, line.strip().split())) for line in input.split('\n') if line.strip()]
     print(raw)
     
-    apex = None
     prev = []
     for layer in raw:
         for i in range(len(prev)):
-            prev[i].left = layer[i]
-            prev[i].right = layer[i + 1]
+            layer[i].setsum(prev[i])
+            layer[i+1].setsum(prev[i])
+            
+        if not prev: layer[0].sum = layer[0].val
         prev = layer
-        if not apex: apex = prev[0]
         
-    print(trisum(apex))
+    print(max(prev))
