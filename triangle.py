@@ -1,3 +1,11 @@
+#!/usr/bin/python3
+
+"""
+Triangle puzzle: Top-down!
+"""
+
+# this whole class could be replaced by a two-element list, but this is
+# prettier
 class Trinode(object):
 
     def __init__(self, value):
@@ -12,6 +20,10 @@ class Trinode(object):
         if sum > self.sum: self.sum = sum
 
 if __name__ == '__main__':
+
+    # one-liner for brevity; since this is top-down, you could reduce memory
+    # usage by processing one line at a time instead of reading the entire file
+    # into memory at once
     raw = [list(map(Trinode, line.strip().split())) for line in open('triangle.txt') if line.strip()]
     
     parent = []
@@ -20,7 +32,7 @@ if __name__ == '__main__':
             layer[i].setsum(parent[i])
             layer[i+1].setsum(parent[i])
             
-        if not parent: layer[0].sum = layer[0].val
+        if not parent: layer[0].sum = layer[0].val # special case for the apex
         parent = layer
         
     print(max(parent).sum)
