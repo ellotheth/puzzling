@@ -14,13 +14,13 @@ class Trinode(object):
 if __name__ == '__main__':
     raw = [list(map(Trinode, line.strip().split())) for line in open('triangle.txt') if line.strip()]
     
-    prev = []
+    parent = []
     for layer in raw:
-        for i in range(len(prev)):
-            layer[i].setsum(prev[i])
-            layer[i+1].setsum(prev[i])
+        for i in range(len(parent)):
+            layer[i].setsum(parent[i])
+            layer[i+1].setsum(parent[i])
             
-        if not prev: layer[0].sum = layer[0].val
-        prev = layer
+        if not parent: layer[0].sum = layer[0].val
+        parent = layer
         
-    print(max(prev).sum)
+    print(max(parent).sum)
