@@ -1,7 +1,9 @@
-#!/usr/bin/python3
-
 """
 Triangle puzzle: Top-down!
+Author: ellotheth
+Date: 2013.02.23
+
+Developed in Python 3.3, but probably works in any Python 3 flavor.
 """
 
 # this whole class could be replaced by a two-element list, but this is
